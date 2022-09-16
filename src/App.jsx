@@ -1,14 +1,31 @@
+import { useState } from "react";
 import "./App.css";
 
 function App() {
+  const [todo, setTodo] = useState();
+  const [todoList, setTodoList] = useState([
+    {
+      id: 1,
+      title: "吃饭",
+    },
+    {
+      id: 2,
+      title: "睡觉",
+    },
+  ]);
+
   return (
     <div className="App">
       <h1>TODO List</h1>
-      <input />
+
+      <input value={todo} />
+
       <ul>
-        <li>吃饭</li>
-        <li>睡觉</li>
-        <li>打游戏</li>
+        {todoList.map(({ id, title }) => (
+          <li key={id}>
+            <a href="#">{title}</a>
+          </li>
+        ))}
       </ul>
 
       <ul className="command-list">
