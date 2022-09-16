@@ -35,6 +35,11 @@ function App() {
     setTodo(event.target.value.trim());
   };
 
+  const removeTodo = (removedId) => {
+    const filteredTodoList = todoList.filter(({ id }) => id !== removedId);
+    setTodoList(filteredTodoList);
+  };
+
   return (
     <div className="App">
       <h1>TODO List</h1>
@@ -50,6 +55,7 @@ function App() {
         {todoList.map(({ id, title }) => (
           <li key={id}>
             <a href="#">{title}</a>
+            <span onClick={() => removeTodo(id)}>x</span>
           </li>
         ))}
       </ul>
