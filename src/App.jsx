@@ -2,7 +2,7 @@ import { useState } from "react";
 import "./App.css";
 
 function App() {
-  const [todo, setTodo] = useState();
+  const [todo, setTodo] = useState("");
   const [todoList, setTodoList] = useState([
     {
       id: 1,
@@ -14,11 +14,37 @@ function App() {
     },
   ]);
 
+  const onKeyDown = (event) => {
+    if (event.key === "Enter") {
+      const title = event.target.value.trim();
+
+      if (todo) {
+        setTodoList([
+          ...todoList,
+          {
+            id: todoList.length + 1,
+            title,
+          },
+        ]);
+        setTodo("");
+      }
+    }
+  };
+
+  const onChange = (event) => {
+    setTodo(event.target.value.trim());
+  };
+
   return (
     <div className="App">
       <h1>TODO List</h1>
 
-      <input value={todo} />
+      <input
+        type="text"
+        value={todo}
+        onKeyDown={onKeyDown}
+        onChange={onChange}
+      />
 
       <ul>
         {todoList.map(({ id, title }) => (
