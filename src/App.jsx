@@ -14,6 +14,9 @@ function App() {
     },
   ]);
 
+  // 派生状态
+  const todoCount = todoList.length;
+
   const onKeyDown = (event) => {
     if (event.key === "Enter") {
       const title = event.target.value.trim();
@@ -43,6 +46,20 @@ function App() {
   return (
     <div className="App">
       <h1>TODO List</h1>
+
+      {todoCount ? (
+        <h3>
+          共有{" "}
+          <span
+            style={{
+              color: "red",
+            }}
+          >
+            {todoCount}
+          </span>{" "}
+          条待办
+        </h3>
+      ) : null}
 
       <input
         type="text"
