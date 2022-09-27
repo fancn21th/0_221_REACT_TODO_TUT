@@ -3,7 +3,7 @@ import "./App.css";
 
 const delay = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
 
-const mockRequst = (params) => {
+const mockRequest = (params) => {
   return delay(2000).then(() => [
     {
       id: 1,
@@ -27,7 +27,7 @@ function App() {
   useEffect(() => {
     // https://stackoverflow.com/questions/53332321/react-hook-warnings-for-async-function-in-useeffect-useeffect-function-must-ret
     async function fetchTodoList() {
-      const result = await mockRequst({});
+      const result = await mockRequest({});
       setTodoList(result);
     }
 
