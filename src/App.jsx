@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./App.css";
 
-function App() {
-  const [todo, setTodo] = useState("");
-  const [todoList, setTodoList] = useState([
+const delay = (ms) => new Promise((resolve) => window.setTimeout(resolve, ms));
+
+const mockRequst = (params) => {
+  return delay(2000).then(() => [
     {
       id: 1,
       title: "吃饭",
@@ -13,9 +14,25 @@ function App() {
       title: "睡觉",
     },
   ]);
+};
+
+function App() {
+  const [todo, setTodo] = useState("");
+  const [todoList, setTodoList] = useState([]);
 
   // 派生状态
   const todoCount = todoList.length;
+
+  // 生命周期
+  useEffect(() => {
+    // https://stackoverflow.com/questions/53332321/react-hook-warnings-for-async-function-in-useeffect-useeffect-function-must-ret
+    async function fetchTodoList() {
+      const result = await mockRequst({});
+      setTodoList(result);
+    }
+
+    fetchTodoList();
+  }, []);
 
   const onKeyDown = (event) => {
     if (event.key === "Enter") {
